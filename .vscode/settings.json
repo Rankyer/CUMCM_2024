@@ -1,0 +1,46 @@
+{
+    "latex-workshop.latex.recipe.default": "lastUsed",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatexmk",
+            ]
+        },
+        {
+            "name": "xelatex -> biber -> xelatex*2",
+            "tools": [
+                "xelatexmk",
+                "biber",
+                "xelatexmk",
+                "xelatexmk"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-xelatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "biber",
+            "command": "biber",
+            "args": [
+                "--output-directory=%OUTDIR%",
+                "%OUTDIR%/%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.intellisense.citation.backend": "biblatex",
+    "latex-workshop.latex.outDir": "%DIR%/build/",
+    "remote.autoForwardPortsFallback": 0,
+}
