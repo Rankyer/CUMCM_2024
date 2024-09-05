@@ -133,12 +133,12 @@
   \fi
 \fi
 \geometry{top=25.4mm,bottom=25.4mm,left=25mm,headsep=5mm,right=25mm}
-%\geometry{a4paper, margin = 1in}
+% \geometry{a4paper, margin = 1in}
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\small\sffamily \team}
-\rhead{ Page \thepage\space of \pageref{LastPage}}
-\cfoot{\xiaowuhao\sffamily \thepage}
+% \lhead{\small\sffamily \team}
+% \rhead{ Page \thepage\space of \pageref{LastPage}}
+\cfoot{\normalsize\sffamily \thepage}
 \setlength\parskip{1.5\baselineskip}
 \renewcommand\tableofcontents{%
     \centerline{\normalfont\Large\bfseries\sffamily\contentsname
@@ -228,7 +228,7 @@
   \setlength{\parindent}{0pt}
      \begin{minipage}[t]{0.8\linewidth}
       \centering
-      \textbf{\headset}
+      % \textbf{\headset}
       \begin{center}
         %\vspace{1em}
         \begin{tabular}{p{50pt}<{\raggedright}p{300pt}<{\centering}}

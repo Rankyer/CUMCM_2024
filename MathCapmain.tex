@@ -24,14 +24,14 @@
     UprightFont = *-Regular,
     BoldFont = *-Bold,
     ItalicFont = *-Italic,
-    BoldItalicFont = *-Bold-Italic  
+    BoldItalicFont = *-Bold-Italic
 ]{TimesNewRoman}
-\setmonofont[ 
+\setmonofont[
     Path=fonts/UbuntuMono/,
     UprightFont = *-Regular,
     BoldFont = *-Bold,
     ItalicFont = *-Italic,
-    BoldItalicFont = *-Bold-Italic  
+    BoldItalicFont = *-Bold-Italic
 ]{UbuntuMono}
 \usepackage{lipsum}
 
@@ -79,7 +79,7 @@
 \makeatother
 
 \usepackage[backend=biber,style=gb7714-2015,gbfieldtype=true]{biblatex}
-\addbibresource[location=local]{references.bib} 
+\addbibresource[location=local]{references.bib}
 
 \usepackage{float} % 图表浮动控制
 \usepackage{subcaption}
@@ -102,12 +102,14 @@
 \renewcommand{\contentsname}{\centerline{\sanhao\bfseries\HEI 目\quad 录}}
 %\thispagestyle{empty}
 %{\song\xiaosihao
-\tableofcontents
+% \tableofcontents
 %}
 
-\newpage
-\setcounter{page}{1}
 \pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} % 去掉页眉的黑线
+\newpage
+
+\setcounter{page}{1}
 \section{问题重述}
 本研究针对天然气水合物（Natural Gas Hydrate/Gas Hydrate），即通常所称的“含水化合物”，
 这是一种在特定高压低温环境下与水结合形成的类冰状结晶物质。由于其外观类似冰块且能在火源接触下燃烧，
