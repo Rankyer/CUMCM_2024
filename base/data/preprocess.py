@@ -1,8 +1,8 @@
 import pandas as pd
 
 # Step 1: Load the Excel files
-file_path1 = '附件1.xlsx'
-file_path2 = '附件2.xlsx'
+file_path1 = 'base/data/附件1.xlsx'
+file_path2 = 'base/data/附件2.xlsx'
 
 # Step 2: 读取所有表格数据
 data_1 = pd.read_excel(file_path1, sheet_name=None)
@@ -39,4 +39,4 @@ final_cleaned_data.rename(columns={
 }, inplace=True)
 
 # 保存结果为Excel文件
-final_cleaned_data.to_excel('合并后的文件.xlsx', index=False)
+final_cleaned_data.to_excel('base/data/preprocessed.xlsx', index=False)
