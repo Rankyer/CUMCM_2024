@@ -73,5 +73,24 @@ merged_data = merged_data.drop(
     ]
 )
 
+# Define a mapping for column names
+column_mapping = {
+    "地块编号": "Field ID",
+    "作物编号": "Crop ID",
+    "作物名称": "Crop Name",
+    "作物类型": "Crop Type",
+    "种植面积/亩": "Planting Area",
+    "种植季次": "Season",
+    "地块类型": "Field Type",
+    "地块面积/亩": "Field Area",
+    "亩产量/斤": "Yield",
+    "种植成本/(元/亩)": "Cost",
+    "销售单价/(元/斤)": "Price",
+    "说明": "Notes",
+}
+
+# Rename columns in the DataFrames
+merged_data.rename(columns=column_mapping, inplace=True)
+
 # Save the result as an Excel file
 merged_data.to_excel("data/preprocess/pre-processed.xlsx", index=False)
