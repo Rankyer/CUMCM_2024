@@ -86,12 +86,10 @@ column_mapping = {
     "亩产量/斤": "Yield",
     "种植成本/(元/亩)": "Cost",
     "销售单价/(元/斤)": "Price",
-    "说明": "Notes",
 }
 
 # Rename columns in the DataFrames
 merged_data.rename(columns=column_mapping, inplace=True)
 
 # Save the result as an Excel file
-merged_data.to_excel("data/preprocess/pre-processed.xlsx", index=False)
 merged_data.to_csv("data/preprocess/pre-processed.csv", index=False)
