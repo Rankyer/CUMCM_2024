@@ -86,22 +86,23 @@ L_2 = \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk} - C_{jk} \cdot A_{ijk}
 $$
 
 ### 约束条件
-+ 每种作物合起来的种植面积不超过相应地块的总面积
+- 每种作物合起来的种植面积不超过相应地块的总面积
 $$
 \sum_jA_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat{T_{is}}
 $$
 
-+ 每种作物在同一地块（含大棚）都不能连续重茬种植
+- 每种作物在同一地块（含大棚）都不能连续重茬种植
 $$
 A_{ij(k-1)s}+A_{ijks} \leq min(A_{ij(k-1)s},A_{ijks}) \quad \forall i,k \text{ and } j \in \hat{T_{is}}
 $$
 
-+ 每个地块（含大棚）的所有土地三年内至少种植一次豆类作物
+- 每个地块（含大棚）的所有土地三年内至少种植一次豆类作物
 $$
 max(A_{ij(k-2)s}, A_{ij(k-1)s},A_{ijks}) = A_i^* \quad \forall i,k \text{ and } j \in \hat{T_{is}}
 $$
 
-+ 每种作物在单个地块（含大棚）种植的面积不宜太小
+- 每种作物在单个地块（含大棚）种植的面积不宜太小
 $$
 A_{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat{T_{is}},n \in \{1,2\}
 $$
+
