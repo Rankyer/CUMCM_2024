@@ -60,10 +60,10 @@
 - $\text{Field Area}_i$：第 $i$ 地块的总面积
 - $\text{Field Type}_i$：第 $i$ 地块的类型（如平旱地、梯田、山坡地、智能大棚、普通大棚、水浇地）
 - $\text{Beans}$：豆类作物的集合
-- $\text{Grains}_A$：A类粮食作物的集合
-- $\text{Grains}_B$：B类粮食作物的集合
-- $\text{Vege}_A$：A类蔬菜的集合
-- $\text{Vege}_B$：B类蔬菜的集合
+- $\text{Grains}_A$：A类粮食作物的集合，即除了水稻之外的粮食作物
+- $\text{Grains}_B$：B类粮食作物的集合，即水稻
+- $\text{Vege}_A$：A类蔬菜的集合，即除了大白菜、白萝卜和红萝卜之外的蔬菜
+- $\text{Vege}_B$：B类蔬菜的集合，即大白菜、白萝卜和红萝卜
 - $\text{Mush}$：食用菌的集合
 
 ### 决策变量
