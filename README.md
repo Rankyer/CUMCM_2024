@@ -57,7 +57,7 @@
 - $A_{i}^*$： 第 $i$ 个地块的面积
 - $A^1_{ijks}$：第 $k$ 年第 $s$ 季度的第 $i$ 大棚上，第 $j$ 作物的种植面积
 - $A^2_{ijks}$：第 $k$ 年第 $s$ 季度的第 $i$ 非大棚地块上，第 $j$ 作物的种植面积
-- $A_{ijk}$：第 $k$ 年第 $i$ 地块上，第 $j$ 作物的总种植面积，定义为：$A_{ijk} = \sum_s A^2_{ijks} + A^1_{ij(k-1)2} + A^1_{ijks}$
+- $A_{ijk}$：第 $k$ 年第 $i$ 地块上，第 $j$ 作物的总种植面积，定义为：$A_{ijk} = \sum_s A^2_{ijks} + A^1_{ij(k-1)2} + A^1_{ijk1}$
 - $t_i$： 第$i$个地块的类型（如平旱地、梯田、山坡地、智能大棚、普通大棚、水浇地）
 - $\hat{T}_{is}$：第 $i$ 个地块在第 $s$ 季可种植的作物集合
 - $\text{Beans}$：豆类作物的集合
@@ -91,22 +91,22 @@ $$
 - 每种作物合起来的种植面积不超过相应地块的总面积
 
   $$
-  sum_j A_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat{T}_{is}
+  \sum_j A_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat{T}_{is}
   $$
 - 每种作物在同一地块（含大棚）都不能连续重茬种植
 
   $$
-  _{ij(k-1)s}+A_{ijks} \leq min(A_{ij(k-1)s},A_{ijks}) \quad \forall i,k \text{ and } j \in \hat{T}_{is}
+  A_{ij(k-1)s}+A_{ijks} \leq min(A_{ij(k-1)s},A_{ijks}) \quad \forall i,k \text{ and } j \in \hat{T}_{is}
   $$
 - 每个地块（含大棚）的所有土地三年内至少种植一次豆类作物
 
   $$
-  ax(A_{ij(k-2)s}, A_{ij(k-1)s},A_{ijks}) = A_i^* \quad \forall i,k \text{ and } j \in \hat{T}_{is}
+  \max(A_{ij(k-2)s}, A_{ij(k-1)s},A_{ijks}) = A_i^* \quad \forall i,k \text{ and } j \in \hat{T}_{is}
   $$
 - 每种作物在单个地块（含大棚）种植的面积不宜太小
 
   $$
-  _{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat{T}_{is},n \in \{1,2\}
+  A_{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat{T}_{is},n \in \{1,2\}
   $$
 - 对于某地块某特定季节的种植限制条件如下所示
     $$
