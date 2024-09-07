@@ -93,8 +93,8 @@ column_mapping = {
     "种植季次": "Season",
     "地块类型": "Field Type",
     "地块面积/亩": "Field Area",
-    "亩产量/斤": "Yield",
-    "种植成本/(元/亩)": "Cost",
+    "亩产量/斤": "Per Yield",
+    "种植成本/(元/亩)": "Per Cost",
     "销售单价/(元/斤)": "Price",
 }
 
@@ -103,6 +103,11 @@ merged_data.rename(columns=column_mapping, inplace=True)
 
 # Replace value in the column
 merged_data["Season"] = merged_data["Season"].replace({"单季": "第一季"})
+
+# Calculate the yield, total cost and total revenue
+merged_data["Yield"] = merged_data["Planting Area"] * merged_data["Per Yield"]
+merged_data["Cost"] = merged_data["Planting Area"] * merged_data["Per Cost"]
+merged_data["Revenue"] = merged_data["Yield"] * merged_data["Price"]
 
 # Save the result as an Excel file
 merged_data.to_csv("data/preprocess/pre-processed.csv", index=False)
