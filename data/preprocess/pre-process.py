@@ -17,9 +17,9 @@ def read_merged_cells(file_path, sheet_name):
 
 
 # Load the Excel files
-file_path_planting = "data/planting_statics-2023.xlsx"
-file_path_land = "data/land_statics.xlsx"
-file_path_stats = "data/general_statics-2023.xlsx"
+file_path_planting = "data/planting_stats-2023.xlsx"
+file_path_land = "data/land_stats.xlsx"
+file_path_stats = "data/general_stats-2023.xlsx"
 
 # Read the data with merged cells handling
 data_planting_2023 = read_merged_cells(file_path_planting, "2023年的农作物种植情况")
