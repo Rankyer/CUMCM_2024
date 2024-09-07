@@ -2,29 +2,39 @@ import pandas as pd
 from openpyxl import load_workbook
 
 
-def read_merged_cells(file_path, sheet_name):
+def read_merged_cells(file_path: str, sheet_name: str) -> pd.DataFrame:
     wb = load_workbook(file_path)
     sheet = wb[sheet_name]
     data = sheet.values
-    columns = next(data)[0:]  # Get the column names
+    columns = next(data)
     df = pd.DataFrame(data, columns=columns)
+    return df.ffill()
 
-    # Fill merged cell values
-    for col in df.columns:
-        df[col] = df[col].ffill()
 
+def strip_string_columns(df: pd.DataFrame) -> pd.DataFrame:
+    string_columns = df.select_dtypes(include=["object"])
+    for col in string_columns.columns:
+        df[col] = df[col].apply(lambda x: x.strip() if isinstance(x, str) else x)
     return df
 
 
 # Load the Excel files
-file_path_planting = "data/planting_stats-2023.xlsx"
-file_path_land = "data/land_stats.xlsx"
-file_path_stats = "data/general_stats-2023.xlsx"
+file_paths = {
+    "planting": "data/planting_stats-2023.xlsx",
+    "land": "data/land_stats.xlsx",
+    "stats": "data/general_stats-2023.xlsx",
+}
 
 # Read the data with merged cells handling
-data_planting_2023 = read_merged_cells(file_path_planting, "2023年的农作物种植情况")
-data_land = read_merged_cells(file_path_land, "乡村的现有耕地")
-data_stats_2023 = read_merged_cells(file_path_stats, "2023年统计的相关数据")
+data_planting_2023 = strip_string_columns(
+    read_merged_cells(file_paths["planting"], "2023年的农作物种植情况")
+)
+data_land = strip_string_columns(
+    read_merged_cells(file_paths["land"], "乡村的现有耕地")
+)
+data_stats_2023 = strip_string_columns(
+    read_merged_cells(file_paths["stats"], "2023年统计的相关数据")
+)
 
 
 # Process the sales price range and take the median
@@ -92,9 +102,7 @@ column_mapping = {
 merged_data.rename(columns=column_mapping, inplace=True)
 
 # Replace value in the column
-merged_data["Season"] = merged_data["Season"].replace(
-    {"单季": "第一季"}
-)
+merged_data["Season"] = merged_data["Season"].replace({"单季": "第一季"})
 
 # Save the result as an Excel file
 merged_data.to_csv("data/preprocess/pre-processed.csv", index=False)
