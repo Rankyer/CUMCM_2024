@@ -50,7 +50,7 @@
 
 ### 符号定义
 
-- $S_{jk}$：第 $k$ 年第 $j$ 作物的期望销量
+- $S_{jk}$：第 $k$ 年第 $j$ 作物的期望产量
 - $Y_{jk}$：第 $k$ 年第 $j$ 作物的单位面积产量
 - $P_{jk}$：第 $k$ 年第 $j$ 作物的售价
 - $C_{jk}$：第 $k$ 年第 $j$ 作物的单位面积成本
@@ -75,7 +75,7 @@
 
 ### 目标函数
 
-#### 情况1：如果某种作物的总产量超过预期销售量，超出部分滞销
+#### 情况1：如果某种作物的总产量超过预期产量，超出部分滞销
 
 $$
 L_1 = \sum_{ijk} \left( \min \left( S_{jk}, Y_{jk} \cdot A_{ijk} \right) \cdot P_{jk} - C_{jk} \cdot A_{ijk} \right)
@@ -110,21 +110,20 @@ $$
   _{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat{T}_{is},n \in \{1,2\}
   $$
 - 对于某地块某特定季节的种植限制条件如下所示
-
-  $$
-  hat{T}_is =
-  \begin{cases}
-  \begin{aligned}
-      & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
-  \end{aligned} \\
-  \begin{aligned}
-      & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
-  \end{aligned} \\
-  \begin{aligned}
-      & \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Mush}, \quad & \text{if } t_i \in \{\text{普通大棚}\} \\
-  \end{aligned} \\
-  \begin{aligned}
-      & \hat{T}_{i1} = \hat{T}_{i2} = \text{Vege}_A, \quad & \text{if } t_i \in \{\text{智慧大棚}\} \\
-  \end{aligned} \\
-  \end{cases}
-  $$
+    $$
+    \hat{T}_{is} =
+    \begin{cases}
+    \begin{aligned}
+        & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
+    \end{aligned} \\
+    \begin{aligned}
+        & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
+    \end{aligned} \\
+    \begin{aligned}
+        & \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Mush}, \quad & \text{if } t_i \in \{\text{普通大棚}\} \\
+    \end{aligned} \\
+    \begin{aligned}
+        & \hat{T}_{i1} = \hat{T}_{i2} = \text{Vege}_A, \quad & \text{if } t_i \in \{\text{智慧大棚}\} \\
+    \end{aligned} \\
+    \end{cases}
+    $$

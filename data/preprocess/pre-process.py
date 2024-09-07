@@ -99,7 +99,7 @@ column_mapping = {
     "地块面积/亩": "Field Area",
     "亩产量/斤": "Per Yield",
     "种植成本/(元/亩)": "Per Cost",
-    "销售单价/(元/斤)": "Price",
+    "销售单价/(元/斤)": "Per Price",
 }
 
 # Rename columns in the DataFrames
@@ -108,14 +108,42 @@ merged_data.rename(columns=column_mapping, inplace=True)
 # Replace value in the column
 merged_data["Season"] = merged_data["Season"].replace({"单季": "第一季"})
 
+# Add a new column for the Season ID
+season_mapping = {"第一季": 1, "第二季": 2}
+merged_data["Season ID"] = merged_data["Season"].map(season_mapping)
+
 # Calculate the yield, total cost, total revenue and profit
 merged_data["Yield"] = merged_data["Planting Area"] * merged_data["Per Yield"]
 merged_data["Cost"] = merged_data["Planting Area"] * merged_data["Per Cost"]
 
 yield_selling_ratio = 0.8
 merged_data["Selling"] = merged_data["Yield"] * yield_selling_ratio
-merged_data["Revenue"] = merged_data["Selling"] * merged_data["Price"]
+merged_data["Revenue"] = merged_data["Selling"] * merged_data["Per Price"]
 merged_data["Profit"] = merged_data["Revenue"] - merged_data["Cost"]
+
+# Reorder the columns
+column_order = [
+    "Field ID",
+    "Field Name",
+    "Crop ID",
+    "Crop Name",
+    "Crop Type",
+    "Planting Area",
+    "Season ID",
+    "Season",
+    "Field Type",
+    "Field Area",
+    "Per Yield",
+    "Per Cost",
+    "Per Price",
+    "Yield",
+    "Cost",
+    "Selling",
+    "Revenue",
+    "Profit",
+]
+
+merged_data = merged_data[column_order]
 
 # Save the result as an Excel file
 merged_data.to_csv("data/preprocess/pre-processed.csv", index=False)
