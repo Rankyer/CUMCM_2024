@@ -106,9 +106,9 @@ $$
     A_{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat{T}_{is},n \in \{1,2\}
     $$
 
-- 种植的地块类型限制和季节限制
+- 对于某地块某特定季节的种植限制条件如下所示
     $$
-    \hat{T}_i =
+    \hat{T}_is =
     \begin{cases}
     \begin{aligned}
         & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
