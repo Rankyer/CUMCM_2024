@@ -57,13 +57,16 @@ stats_2023 = data_stats_2023[
 # Merging based on planting data in 2023
 merged_data = data_planting_2023.copy()
 
+# Labeling Fields with Field ID
+data_land["地块编号"] = data_land.index + 1
+
 # Merge in land data
 merged_data = pd.merge(
     merged_data,
     data_land,
     how="left",
-    left_on="地块编号",
-    right_on="地块编号",
+    left_on="地块名称",
+    right_on="地块名称",
 )
 
 # Merge in price data
@@ -85,6 +88,7 @@ merged_data = merged_data.drop(
 
 # Define a mapping for column names
 column_mapping = {
+    "地块名称": "Field Name",
     "地块编号": "Field ID",
     "作物编号": "Crop ID",
     "作物名称": "Crop Name",
