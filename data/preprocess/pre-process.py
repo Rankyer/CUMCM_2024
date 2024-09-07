@@ -91,5 +91,10 @@ column_mapping = {
 # Rename columns in the DataFrames
 merged_data.rename(columns=column_mapping, inplace=True)
 
+# Replace value in the column
+merged_data["Season"] = merged_data["Season"].replace(
+    {"单季": "第一季"}
+)
+
 # Save the result as an Excel file
 merged_data.to_csv("data/preprocess/pre-processed.csv", index=False)
