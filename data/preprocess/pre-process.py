@@ -107,7 +107,10 @@ merged_data["Season"] = merged_data["Season"].replace({"单季": "第一季"})
 # Calculate the yield, total cost, total revenue and profit
 merged_data["Yield"] = merged_data["Planting Area"] * merged_data["Per Yield"]
 merged_data["Cost"] = merged_data["Planting Area"] * merged_data["Per Cost"]
-merged_data["Revenue"] = merged_data["Yield"] * merged_data["Price"]
+
+yield_selling_ratio = 0.8
+
+merged_data["Revenue"] = merged_data["Yield"] * yield_selling_ratio * merged_data["Price"]
 merged_data["Profit"] = merged_data["Revenue"] - merged_data["Cost"]
 
 # Save the result as an Excel file
