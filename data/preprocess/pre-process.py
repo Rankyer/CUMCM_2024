@@ -104,10 +104,11 @@ merged_data.rename(columns=column_mapping, inplace=True)
 # Replace value in the column
 merged_data["Season"] = merged_data["Season"].replace({"单季": "第一季"})
 
-# Calculate the yield, total cost and total revenue
+# Calculate the yield, total cost, total revenue and profit
 merged_data["Yield"] = merged_data["Planting Area"] * merged_data["Per Yield"]
 merged_data["Cost"] = merged_data["Planting Area"] * merged_data["Per Cost"]
 merged_data["Revenue"] = merged_data["Yield"] * merged_data["Price"]
+merged_data["Profit"] = merged_data["Revenue"] - merged_data["Cost"]
 
 # Save the result as an Excel file
 merged_data.to_csv("data/preprocess/pre-processed.csv", index=False)
