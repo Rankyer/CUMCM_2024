@@ -109,8 +109,8 @@ merged_data["Yield"] = merged_data["Planting Area"] * merged_data["Per Yield"]
 merged_data["Cost"] = merged_data["Planting Area"] * merged_data["Per Cost"]
 
 yield_selling_ratio = 0.8
-
-merged_data["Revenue"] = merged_data["Yield"] * yield_selling_ratio * merged_data["Price"]
+merged_data["Selling"] = merged_data["Yield"] * yield_selling_ratio
+merged_data["Revenue"] = merged_data["Selling"] * merged_data["Price"]
 merged_data["Profit"] = merged_data["Revenue"] - merged_data["Cost"]
 
 # Save the result as an Excel file
