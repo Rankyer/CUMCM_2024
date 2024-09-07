@@ -88,7 +88,7 @@ $$
 ### 约束条件
 - 每种作物合起来的种植面积不超过相应地块的总面积
 $$
-\sum_jA_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat T_{is}
+\sum_j A_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat T_{is}
 $$
 
 - 每种作物在同一地块（含大棚）都不能连续重茬种植
