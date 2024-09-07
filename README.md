@@ -58,7 +58,7 @@
   A_{ijk} = \sum_s A^2_{ijks} + A^1_{ij(k-1)2} + A^1_{ijks}
   $$
 - $t_i$： 第$i$个地块的类型（如平旱地、梯田、山坡地、智能大棚、普通大棚、水浇地）
-- $\hat{T_{is}}$：第 $i$ 个地块在第 $s$ 季可种植的作物集合
+- $\hat T_{is}$：第 $i$ 个地块在第 $s$ 季可种植的作物集合
 - $\text{Beans}$：豆类作物的集合
 - $\text{Grains}_A$：A类粮食作物的集合，即除了水稻之外的粮食作物
 - $\text{Grains}_B$：B类粮食作物的集合，即水稻
@@ -88,21 +88,21 @@ $$
 ### 约束条件
 - 每种作物合起来的种植面积不超过相应地块的总面积
 $$
-\sum_jA_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat{T_{is}}
+\sum_jA_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat T_{is}
 $$
 
 - 每种作物在同一地块（含大棚）都不能连续重茬种植
 $$
-A_{ij(k-1)s}+A_{ijks} \leq min(A_{ij(k-1)s},A_{ijks}) \quad \forall i,k \text{ and } j \in \hat{T_{is}}
+A_{ij(k-1)s}+A_{ijks} \leq min(A_{ij(k-1)s},A_{ijks}) \quad \forall i,k \text{ and } j \in \hat T_{is}
 $$
 
 - 每个地块（含大棚）的所有土地三年内至少种植一次豆类作物
 $$
-max(A_{ij(k-2)s}, A_{ij(k-1)s},A_{ijks}) = A_i^* \quad \forall i,k \text{ and } j \in \hat{T_{is}}
+max(A_{ij(k-2)s}, A_{ij(k-1)s},A_{ijks}) = A_i^* \quad \forall i,k \text{ and } j \in \hat T_{is}
 $$
 
 - 每种作物在单个地块（含大棚）种植的面积不宜太小
 $$
-A_{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat{T_{is}},n \in \{1,2\}
+A_{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat T_{is},n \in \{1,2\}
 $$
 
