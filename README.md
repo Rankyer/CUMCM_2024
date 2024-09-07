@@ -105,7 +105,7 @@ $$
 
 - 对于某地块某特定季节的种植限制条件如下所示
     $$
-    \hat{T}_is =
+    \hat{T}_{is} =
     \begin{cases}
     \begin{aligned}
         & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
