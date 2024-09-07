@@ -50,6 +50,7 @@
 - $Y_{jk}$：第 $k$ 年第 $j$ 作物的单位面积产量
 - $P_{jk}$：第 $k$ 年第 $j$ 作物的售价
 - $C_{jk}$：第 $k$ 年第 $j$ 作物的单位面积成本
+- $A_{i}$： 第 $i$ 个地块的面积
 - $A^1_{ijks}$：第 $k$ 年第 $s$ 季度的第 $i$ 大棚上，第 $j$ 作物的种植面积
 - $A^2_{ijks}$：第 $k$ 年第 $s$ 季度的第 $i$ 非大棚地块上，第 $j$ 作物的种植面积
 - $A_{ijk}$：第 $k$ 年第 $i$ 地块上，第 $j$ 作物的总种植面积，定义为：
@@ -84,3 +85,18 @@ $$
 L_2 = \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk} - C_{jk} \cdot A_{ijk} - 0.5 \cdot \max \left( 0, Y_{jk} \cdot A_{ijk} - S_{jk} \right) \cdot P_{jk} \right)
 $$
 
+### 约束条件
++ 每种作物合起来的种植面积不超过相应地块的总面积
+$$
+\sum_jA_{ijks} \leq A_i \quad \forall i,j,k
+$$
+
++ 每种作物在同一地块（含大棚）都不能连续重茬种植
+$$
+A_{ij(k-1)s}+A_{ijks} \leq min(A_{ij(k-1)s},A_{ijks}) \quad \forall i,j,k
+$$
+
++ 每个地块（含大棚）的所有土地三年内至少种植一次豆类作物
+$$
+max(A_{ij(k-2)s}, A_{ij(k-1)s},A_{ijks}) = A_i \quad \forall i,k \text{ and } j \in \{\text{Beans}\}
+$$
