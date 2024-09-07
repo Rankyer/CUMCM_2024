@@ -114,7 +114,7 @@ $$
         & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
     \end{aligned} \\
     \begin{aligned}
-        & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Veg}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
+        & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
     \end{aligned} \\
     \begin{aligned}
         & \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Mush}, \quad & \text{if } t_i \in \{\text{普通大棚}\} \\
