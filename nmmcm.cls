@@ -48,7 +48,7 @@
 \MCM@opt@abstracttrue
 \newcommand{\mcmsetup}[1]{\setkeys{MCM}{#1}}
 \ProcessOptionsX\relax
-\LoadClass[a4paper, 12pt]{article}
+\LoadClass[a4paper, 10pt]{article}
 \newcommand{\team}{Team \#\ \MCM@opt@tcn}
 \RequirePackage{fancyhdr, fancybox}
 \RequirePackage{ifthen}
