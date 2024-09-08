@@ -895,9 +895,9 @@ L_2 = \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk} - C_{jk} \cdot A_{ijk}
 
 \subsection{目标函数}
 
-问题二中的目标函数与问题一类似，都是通过最大化种植收益来优化作物的种植面积分配。然而，在问题二中，作物的预期销量、产量、成本和售价都有波动，因此目标函数需要考虑这些动态变化。我们根据两种情境定义目标函数。
+问题二中的目标函数与问题一类似，都是通过最大化种植收益来优化作物的种植面积分配。然而，在问题二中，作物的预期销量、产量、成本和售价都有波动，因此目标函数需要考虑这些动态变化。我们根据第一问的情景定义目标函数。
 
-\paragraph{情境1：作物超出部分滞销}
+\paragraph{作物超出部分滞销}
 
 如果某种作物的总产量超过了预期销售量，超出部分将被视为滞销，因此目标函数应最大化可销售部分的收益。目标函数表达式如下：
 
@@ -907,19 +907,6 @@ L_2 = \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk} - C_{jk} \cdot A_{ijk}
 
 其中，$S_{jk}$ 是第 $k$ 年第 $j$ 种作物的预期销量，考虑年度变化因子 $\delta_s$，每年可能在5\%-10\%的范围内波动；$C_{jk}$ 是第 $k$ 年第 $j$ 种作物的单位面积种植成本，考虑年度增长因子 $\delta_c$，每年平均增长5\%。
 
-\paragraph{情境2：超出部分按50\%降价出售}
-
-在这一情境中，超出预期销售量的作物将以50\%的价格降价出售。因此，目标函数需要计算超出部分的折扣收益，具体表达式如下：
-
-\begin{align*}
-  L_2 = & \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk}
-  - C_{jk} \cdot (1 + \delta_c) \cdot A_{ijk} \right.           \\
-        & \left. - 0.5 \cdot \max\left( 0, Y_{jk} \cdot A_{ijk}
-  - S_{jk} \cdot (1 + \delta_s) \right) \cdot P_{jk} \right)
-\end{align*}
-
-
-在此情境下，模型允许作物的种植面积超出市场需求，超出部分将以50\%的价格出售。$0.5 \cdot \max(0, Y_{jk} \cdot A_{ijk} - S_{jk})$ 计算超出部分的折扣销售收益。
 
 \subsection{约束条件}
 
@@ -937,7 +924,7 @@ L_2 = \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk} - C_{jk} \cdot A_{ijk}
   S_{jk} = S_{j2023} \cdot (1 + \delta_s) \quad \text{where } \delta_s \in [0.05, 0.10] \quad \text{for } j \in \text{Grains}_A
 \]
 
-对于其他类型的作物，年度销售量会根据2023年数据在±5\%的区间内波动，而小麦和玉米（$j \in \text{Grains}_A$）的销售量则在每年增长5\%-10\%之间。这一约束条件保证了模型在每一年都能够合理调整作物的种植面积，避免因销量预期变化导致的产量过剩或不足。
+对于其他类型的作物，年度销售量会根据2023年数据在±5\%的区间内波动，而小麦和玉米（$j \in \text{Grains}_A$）的销售量则在每年增长5\%-10\%之间。
 
 此外，针对售价的波动，蔬菜类作物的售价每年平均增长5\%，而食用菌（尤其是羊肚菌）的售价则每年下降1\%-5\%。这一情况需要在模型中通过售价的年度动态变化进行处理，具体表述为：
 
@@ -964,23 +951,23 @@ L_2 = \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk} - C_{jk} \cdot A_{ijk}
 
 不同地块在不同季节适合种植的作物类型需要根据地块的类型进行限制。与问题一类似，我们为模型设置了如下种植限制：
 
-\[
-  \hat{T}_{is} =
-  \begin{cases}
-    \begin{aligned}
-       & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
-    \end{aligned}                                     \\
-    \begin{aligned}
-       & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
-    \end{aligned} \\
-    \begin{aligned}
-       & \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Mush}, \quad & \text{if } t_i \in \{\text{普通大棚}\} \\
-    \end{aligned}                                                      \\
-    \begin{aligned}
-       & \hat{T}_{i1} = \hat{T}_{i2} = \text{Vege}_A, \quad & \text{if } t_i \in \{\text{智慧大棚}\} \\
-    \end{aligned}                                                                         \\
-  \end{cases}
-\]
+$$
+\hat{T}_{is} =
+\begin{cases}
+\begin{aligned}
+    & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
+\end{aligned} \\
+\begin{aligned}
+    & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
+\end{aligned} \\
+\begin{aligned}
+    & \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Mush}, \quad & \text{if } t_i \in \{\text{普通大棚}\} \\
+\end{aligned} \\
+\begin{aligned}
+    & \hat{T}_{i1} = \hat{T}_{i2} = \text{Vege}_A, \quad & \text{if } t_i \in \{\text{智慧大棚}\} \\
+\end{aligned} \\
+\end{cases}
+$$
 
 该约束可以确保不同地块在适合的季节种植适合的作物。例如，平旱地和山坡地主要用于种植A类粮食作物（如小麦、玉米），而水浇地则可以种植水稻和蔬菜。大棚地块则适合种植蔬菜和食用菌，根据不同季节安排合适的作物组合。
 
