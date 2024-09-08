@@ -18,9 +18,9 @@ def planning(
     mush,
     beans,
     stats_2023,
-    *stats_updating,
+    stats_updating,
 ):
-    S, Y, P, C = *stats_updating
+    S, Y, P, C = stats_updating
 
     # # 定义决策变量
     # A^1_{ijks}：第 k 年第 s 季度的第 i 块地，第 j 作物的种植面积，若为不为大棚地块则为 0
