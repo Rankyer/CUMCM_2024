@@ -147,25 +147,3 @@ merged_data = merged_data[column_order]
 
 # Save the result as an Excel file
 merged_data.to_csv("data/preprocess/pre-processed.csv", index=False)
-
-temp = merged_data.copy()
-
-# 统计每种作物的种植面积和售价与种植成本
-crop_stats = temp.groupby("Crop ID").agg(
-    {
-        "Planting Area": "sum",
-        "Per Price": "mean",
-        "Per Cost": "mean",
-        "Yield": "sum",
-        "Cost": "sum",
-        "Selling": "sum",
-        "Revenue": "sum",
-        "Profit": "sum",
-    }
-)
-crop_stats.reset_index(inplace=True)
-
-# 四舍五入所有数据
-crop_stats = crop_stats.round(2)
-crop_stats.drop(columns=["Selling", "Revenue", "Profit"], inplace=True)
-crop_stats.to_csv("data/preprocess/temp.csv", index=False)
