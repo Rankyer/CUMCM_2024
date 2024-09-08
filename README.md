@@ -60,6 +60,8 @@
 - $A_{ijk}$：第 $k$ 年第 $i$ 地块上，第 $j$ 作物的总种植面积，定义为：$A_{ijk} = \sum_s A^2_{ijks} + A^1_{ijk1} +A^1_{ij(k-1)2}$
 - $A_{ijks}$: 第 $k$ 年, 第 $s$ 季, 第 $i$ 地块上，第 $j$ 作物的总种植面积, 定义为: $A_{ijks} = A^1_{ijks} + A^2_{ijks}$
 - $t_i$： 第$i$个地块的类型（如平旱地、梯田、山坡地、智能大棚、普通大棚、水浇地）
+- $\epsilon$: 农作物最少种植的土地面积占比
+- $M$: 二元决策变量$B_{ijks}$对应上界, 此处取10000
 - $\hat{T}_{is}$：第 $i$ 个地块在第 $s$ 季可种植的作物集合
 - $\text{Beans}$：豆类作物的集合
 - $\text{Grains}_A$：A类粮食作物的集合，即除了水稻之外的粮食作物
@@ -71,8 +73,11 @@
 ### 决策变量
 
 - $A^1_{ijks}$：第 $k$ 年第 $s$ 季度的第 $i$ 块土地若为大棚，则此项为该季度的种植面积，否则为0
-- $A^2_{ijks}$：第 $k$ 年第 $s$ 季度的第 $i$ 若非大棚，则此项为该季度的种植面积，否则为0
+- $A^2_{ijks}$：第 $k$ 年第 $s$ 季度的第 $i$ 块土地若非大棚，则此项为该季度的种植面积，否则为0
+- $B_{ijks}$: 第 $k$ 年第 $s$ 季度的第 $i$ 块土地是否种植第 $j$ 种植物，若种植则$B_{ijks} = 1$, $B_{ijks} \in \{ 0, 1\}$
 
+### 辅助变量
+- $z_{ijk} = max(0，Y_{jk} \cdot A_{ijk} - S_{jk})$
 ### 目标函数
 
 #### 情况1：如果某种作物的总产量超过预期产量，超出部分滞销
@@ -88,6 +93,10 @@ L_2 = \sum_{ijk} \left( Y_{jk} \cdot A_{ijk} \cdot P_{jk} - C_{jk} \cdot A_{ijk}
 $$
 
 ### 约束条件
+- 决策变量上界约束关系
+ $$
+ B_{ijks} \cdot M \geq A_{ijks}, M=10000  \quad \forall i,j,k,s, 
+ $$
 
 - 每种作物合起来的种植面积不超过相应地块的总面积
 
@@ -95,35 +104,48 @@ $$
   \sum_j A_{ijks} \leq A_i^* \quad \forall i,k \text{ and } j \in \hat{T}_{is}
   $$
 - 每种作物在同一地块（含大棚）都不能连续重茬种植
-
-  $$
-  A_{ij(k-1)s}+A_{ijks} \leq min(A_{ij(k-1)s},A_{ijks}) \quad \forall i,k \text{ and } j \in \hat{T}_{is}
-  $$
+   1. 对于没有第二季的土地: \
+   $
+   B_{ijks} + B_{ijk(s+1)} \leq 1$, $t_i \in \{水浇地\},T_{i2} \neq \empty $ 或 $t_i \notin \{ 平旱地， 梯田，山坡地\}
+   $
+   2. 对于包含第二季的土地: \
+   $B_{ijks} + B_{ij(k+1)s} \leq 1$, $t_i \in \{水浇地\},T_{i2} = \empty $ 或 $t_i \in \{ 平旱地， 梯田，山坡地\}$
 - 每个地块（含大棚）的所有土地三年内至少种植一次豆类作物
-
+  1. 确保三年内至少一季种植豆类：
   $$
-  \max(A_{ij(k-2)s}, A_{ij(k-1)s},A_{ijks}) = A_i^* \quad \forall i,k \text{ and } j \in \hat{T}_{is}
+  \sum_{k=t_0}^{2+t_0}\sum_{s} B_{ijks} \geq 1, t_0 \in [ 2023, 2028], j \in (Beans \cap \hat{T}_{is})
+  $$
+  2. 确保每次种植一整块土地
+    $$
+  A_{i}^* B_{ijks} = A_{ijks} , j \in (Beans \cap \hat{T}_{is})
   $$
 - 每种作物在单个地块（含大棚）种植的面积不宜太小
 
   $$
-  A_{ijks}^{n} \geq M \times A_i^*  \quad \text{if } A_{ijks}^{n} \neq 0 \qquad \forall i,k \text{ and } j \in \hat{T}_{is},n \in \{1,2\}
+   \epsilon \cdot A_{i}^* \cdot B_{ijks} = A_{ijks} 
   $$
+  此处经查阅2023年数据, $\epsilon$取值为0.4
 - 对于某地块某特定季节的种植限制条件如下所示
-    $$
-    \hat{T}_{is} =
-    \begin{cases}
-    \begin{aligned}
-        & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
-    \end{aligned} \\
-    \begin{aligned}
-        & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
-    \end{aligned} \\
-    \begin{aligned}
-        & \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Mush}, \quad & \text{if } t_i \in \{\text{普通大棚}\} \\
-    \end{aligned} \\
-    \begin{aligned}
-        & \hat{T}_{i1} = \hat{T}_{i2} = \text{Vege}_A, \quad & \text{if } t_i \in \{\text{智慧大棚}\} \\
-    \end{aligned} \\
-    \end{cases}
-    $$
+
+  $$
+  \hat{T}_{is} =
+  \begin{cases}
+  \begin{aligned}
+      & \hat{T}_{i1} = \text{Grains}_A, \quad \hat{T}_{i2} = \phi, \quad & \text{if } t_i \in \{\text{平旱地}, \text{梯田}, \text{山坡地}\} \\
+  \end{aligned} \\
+  \begin{aligned}
+      & \hat{T}_{i1} = \text{Grains}_B \quad \text{或} \quad \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Vege}_B, \quad & \text{if } t_i \in \{\text{水浇地}\} \\
+  \end{aligned} \\
+  \begin{aligned}
+      & \hat{T}_{i1} = \text{Vege}_A, \quad \hat{T}_{i2} = \text{Mush}, \quad & \text{if } t_i \in \{\text{普通大棚}\} \\
+  \end{aligned} \\
+  \begin{aligned}
+      & \hat{T}_{i1} = \hat{T}_{i2} = \text{Vege}_A, \quad & \text{if } t_i \in \{\text{智慧大棚}\} \\
+  \end{aligned} \\
+  \end{cases}
+  $$
+
+- 辅助变量约束条件
+
+- 非负性: $z_{ijk} \geq 0 , \forall k, i, j \in \hat{T}_{is}$
+- 最优性: $z_{ijk} \geq Y_{jk}  A_{ijk} - S_{jk} , \forall k, i, j \in \hat{T}_{is}$
