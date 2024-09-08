@@ -1347,23 +1347,20 @@ C_{jk} = C_{j2023} \cdot (1 + 0.05)^{k-2023}
 
 \newpage
 \begin{appendices}
-  \section*{纯 Python 代码部分}
+  \section*{ Python 代码}
 
-  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序一：加载数据和预处理}}
-  \lstinputlisting[language=python]{code/loadAndPreprocess.py}
-  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序二：拟合三维 Kriging 插值模型}}
-  \lstinputlisting[language=python]{code/kriging3D-train.py}
-  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序三：使用三维 Kriging 模型进行预测}}
-  \lstinputlisting[language=python]{code/kriging3D-predict.py}
-
-  \section*{Jupyter Note Book（Plotly 输出不可读）}
-  \includepdf[pages=-, scale=0.8, pagecommand={}]{code/jupyter/eda.pdf}
-  \includepdf[pages=-, scale=0.8, pagecommand={}]{code/jupyter/resources-vis.pdf}
-  \includepdf[pages=-, scale=0.8, pagecommand={}]{code/jupyter/distributions.pdf}
-  \includepdf[pages=-, scale=0.8, pagecommand={}]{code/jupyter/kriging3D/kriging3D.pdf}
-  \includepdf[pages=-, scale=0.8, pagecommand={}]{code/jupyter/kriging3D/semivarience.pdf}
-  \includepdf[pages=-, scale=0.8, pagecommand={}]{code/jupyter/kriging2D.pdf}
-  \includepdf[pages=-, scale=0.8, pagecommand={}]{code/jupyter/new-wells.pdf}
+  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序一：问题一的第一种情况}}
+  \lstinputlisting[language=python]{code/prob-1/solution-1.py}
+  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序二：问题一的第二种情况}}
+  \lstinputlisting[language=python]{code/prob-1/solution-2.py}
+  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序三：问题二的核心求解代码}}
+  \lstinputlisting[language=python]{code/prob-2/planning.py}
+  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序四：问题二的外围调用代码}}
+  \lstinputlisting[language=python]{code/prob-2/solution.py}
+  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序五：问题三的核心求解代码}}
+  \lstinputlisting[language=python]{code/prob-3/planning.py}
+  \textbf{\textcolor[rgb]{0.98,0.00,0.00}{程序六：问题二的外围调用代码}}
+  \lstinputlisting[language=python]{code/prob-3/solution.py}
 \end{appendices}
 \end{document}
 %%
